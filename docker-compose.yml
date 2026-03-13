@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Servidor Web (Proxy Reverso)
+  web_server:
+    image: nginx:latest
+    container_name: limes_web_proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    restart: always
+
+  # Banco de Dados Relacional
+  database:
+    image: mysql:5.7
+    container_name: limes_db
+    environment:
+      MYSQL_ROOT_PASSWORD: senha_segura_demo
+      MYSQL_DATABASE: app_data
+    restart: always
+
+networks:
+  default:
+    name: limes_network
